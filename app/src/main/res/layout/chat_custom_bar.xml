@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_custom_profile_image"
+        android:layout_alignParentEnd="true"
+        android:layout_width="60dp"
+        android:layout_marginTop="3dp"
+        android:cropToPadding="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/profile"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/id_custom_profile_name"
+        android:layout_alignParentTop="true"
+        android:text="Display user Name"
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/id_custom_user_last_seen"
+        android:text="last seen"
+        android:layout_below="@+id/id_custom_profile_name"
+        android:layout_alignParentStart="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/background_light"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

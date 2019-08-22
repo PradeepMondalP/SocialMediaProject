@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F7F2F1"
+    android:layout_height="match_parent"
+    tools:context=".SetupActivity">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:src="@drawable/profile"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/id_profile_image_setup"
+        android:layout_height="200dp" />
+
+    <EditText
+        android:id="@+id/id_multiline_username"
+        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:drawableStart="@drawable/username"
+        android:layout_margin="15dp"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_profile_image_setup"
+        android:layout_centerHorizontal="true"
+        android:hint="Username"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/id_multiline_fullName"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_multiline_username"
+        android:layout_centerHorizontal="true"
+        android:hint="Full name"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/name"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/id_multiline_country"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/country"
+        android:layout_below="@+id/id_multiline_fullName"
+        android:layout_centerHorizontal="true"
+        android:hint="Country name"
+        android:ems="10"
+        android:padding="10dp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:text="SAVE"
+        android:padding="10dp"
+        android:id="@+id/id_saveInfo_Setup"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/small_background"
+        android:layout_below="@+id/id_multiline_country"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

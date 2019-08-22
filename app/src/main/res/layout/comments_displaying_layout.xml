@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/post_border"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/id_comment_dp"
+                android:layout_width="45dp"
+                android:background="#C2C2BE"
+                android:src="@drawable/profile"
+                android:layout_height="45dp" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:orientation="vertical"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:id="@+id/id_comment_userName"
+                   android:textColor="@android:color/black"
+                   android:layout_marginLeft="20dp"
+                   android:textSize="18sp"
+                   android:text="userName"
+                   android:textStyle="bold"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp" />
+
+               <TextView
+                   android:layout_marginLeft="20dp"
+                   android:textSize="15sp"
+                   android:textColor="@android:color/black"
+                   android:text="Commented on this post"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+
+           </LinearLayout>
+
+
+
+
+        </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:text="my comments"
+              android:id="@+id/id_comment_myComment"
+              android:padding="10dp"
+              android:textColor="@android:color/black"
+              android:textSize="18sp"
+              android:inputType="textMultiLine"
+              android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/id_comment_date"
+                    android:layout_width="wrap_content"
+                    android:text="Date "
+
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15sp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/id_comment_time"
+                    android:layout_width="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:text="Time"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="15sp"
+                    android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

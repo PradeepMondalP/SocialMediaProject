@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FAFACA</color>
+    <color name="colorPrimaryDark">#67C56A</color>
+    <color name="colorAccent">#F1C70E</color>
+    <color name="colorprofile">#4A6466</color>
+    <color name="colorBackground">#F1F7FA</color>
+    <color name="tempClo">#039BE5</color>
+    <color name="senderColor">#40E214</color>
+    <color name="ReceiverColor">#F4F5F4</color>
+</resources>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonProfileActivity">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="#040E1F"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="300dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/id_rofile_profile_image2"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/profile"
+                android:layout_marginBottom="4dp"
+                android:layout_height="300dp" />
+
+            <TextView
+                android:id="@+id/id_rofile_profile_name2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_rofile_profile_image2"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Profile Name"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_rofile_user_name2"
+                android:layout_width="match_parent"
+                android:text="user Name"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:padding="3dp"
+                android:layout_below="@+id/id_rofile_profile_name2"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/id_rofile_profile_status2"
+                android:layout_width="match_parent"
+                android:text="hey i will show you the status "
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:padding="3dp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/id_rofile_user_name2"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/id_rofile_country2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_marginTop="80dp"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Country"
+                android:layout_below="@+id/id_rofile_profile_status2"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_rofile_dob2"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Date Of Birth"
+                android:layout_marginTop="12dp"
+                android:padding="2dp"
+                android:layout_below="@id/id_rofile_country2"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/id_rofile_gender2"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="gender"
+                android:layout_marginTop="12dp"
+                android:padding="2dp"
+                android:layout_below="@id/id_rofile_dob2"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/id_send_friend_req_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_rofile_gender2"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/input2"
+                android:padding="5dp"
+                android:text="Send Friend Request" />
+
+            <Button
+                android:id="@+id/id_decliine_friend_req_btn"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:background="@drawable/input3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="Decline Friend Request"
+                android:layout_below="@+id/id_send_friend_req_btn"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

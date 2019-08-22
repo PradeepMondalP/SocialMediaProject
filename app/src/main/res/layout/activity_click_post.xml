@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClickPostActivity">
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_clickPost_toolbar">
+    </include>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/id_clickPost_toolbar"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/id_clickPost_image_view"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="550dp"
+                app:srcCompat="@drawable/select_image" />
+
+            <TextView
+                android:id="@+id/id_click_post_image_descrip"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:text="image description"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/id_click_post_update_btn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="300dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/small_background"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content"
+                    android:text="Update Post" />
+
+                <Button
+                    android:id="@+id/id_click_post_delete_button"
+                    android:padding="10dp"
+                    android:layout_below="@+id/id_click_post_update_btn"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/small_background"
+                    android:textSize="18sp"
+                    android:layout_width="300dp"
+                    android:textColor="@android:color/white"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Post" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

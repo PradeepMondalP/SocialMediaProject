@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/id_nav_add_new_post"
+        android:icon="@drawable/add_post"
+        android:title="Add new Post"/>
+
+    <item
+        android:id="@+id/id_nav_profile"
+        android:icon="@drawable/edit_profile"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/id_nav_home"
+        android:icon="@drawable/home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/id_nav_friends"
+        android:icon="@drawable/friends"
+        android:title="Friends"/>
+
+    <item
+        android:id="@+id/id_nav_find_friends"
+        android:icon="@drawable/find_people"
+        android:title="Find Friends"/>
+
+    <item
+        android:id="@+id/id_nav_find_friend_request"
+        android:icon="@drawable/find_people"
+        android:title="Friend Requests"/>
+
+    <item
+        android:id="@+id/id_nav_messages"
+        android:icon="@drawable/messages"
+        android:title="Messages"/>
+
+    <item
+        android:id="@+id/id_nav_settings"
+        android:icon="@drawable/edit_status"
+        android:title="Update your Profile"/>
+    <item
+        android:id="@+id/id_nav_logout"
+        android:icon="@drawable/logout"
+        android:title="Log Out"/>
+
+
+     <item
+         android:title="Rate us"
+         android:id="@+id/id_rate"/>
+
+
+    <item
+        android:title="Developer"
+        android:id="@+id/id_developer"/>
+
+</menu>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/message_profile_image"
+        android:layout_width="50dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/profile"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/receiver_message_text"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/black"
+        android:text="hello "
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/receiver_message_text_background"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/message_profile_image"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/sender_message_text"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="40dp"
+        android:text="hi pradeep"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:background="@drawable/sender_message_text_background"
+        android:layout_marginTop="2dp"
+        android:layout_alignParentTop="@+id/receiver_message_text"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F2F7F7"
+    android:layout_height="match_parent"
+    tools:context=".UpdateProfileSettingActivity">
+
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_setting_toolbar">
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/id_setting_toolbar"
+        android:layout_marginTop="5dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="250dp"
+                android:id="@+id/id_setting_profile_image"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/profile"
+                android:layout_centerHorizontal="true"
+                android:layout_height="220dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@+id/id_setting_profile_image"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="Status"
+                        android:textSize="18sp"
+                        android:layout_weight="1.5"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_status"
+                        android:hint="profile status"
+                        android:background="@drawable/input"
+                        android:textSize="18sp"
+                        android:layout_marginTop="4dp"
+                        android:inputType="textMultiLine"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="21dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="User Name"
+                        android:textSize="15sp"
+                        android:layout_weight="1.5"
+                        android:padding="7dp"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_username"
+                        android:layout_marginLeft="10dp"
+                        android:hint="user Name"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="Full Name"
+                        android:textSize="15sp"
+                        android:layout_weight="1.7"
+                        android:padding="7dp"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_fullName"
+                        android:layout_marginLeft="10dp"
+                        android:hint="full Name"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="country Name"
+                        android:textSize="12sp"
+                        android:layout_weight="1.7"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_countryName"
+                        android:layout_marginLeft="10dp"
+                        android:hint="country Name"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="DOB"
+                        android:textSize="15sp"
+                        android:layout_weight="1.5"
+                        android:padding="7dp"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_dob"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Date of Birth"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="Gender"
+                        android:textSize="15sp"
+                        android:layout_weight="1.5"
+                        android:padding="7dp"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_gender"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Gender"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:text="Relationship"
+                        android:textSize="15sp"
+                        android:layout_weight="1.7"
+                        android:padding="7dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:id="@+id/id_setting_profile_relationship"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Relationship status"
+                        android:textSize="18sp"
+                        android:background="@drawable/input"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="12dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:id="@+id/id_setting_profile_update_all_button"
+                    android:text="Update Account settings"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:shadowColor="@android:color/darker_gray"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/small_background"
+                    android:layout_height="60dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>
