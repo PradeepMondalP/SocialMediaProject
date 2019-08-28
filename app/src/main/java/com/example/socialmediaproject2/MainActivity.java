@@ -33,7 +33,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.zolad.zoominimageview.ZoomInImageView;
 
@@ -147,45 +150,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-       //   updateUserStatus("online");
-
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-     //   updateUserStatus("offline");
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-     //   updateUserStatus("offline");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-    }
-
     private void displayAllTheUsersPost() {
     //    updateUserStatus("online");
+        Query sortPostInDescendingOrder = postRef.orderByChild("counter");
+        sortPostInDescendingOrder.keepSynced(true);
 
 
         FirebaseRecyclerAdapter< Post , PostsViewHolder > firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Post, PostsViewHolder>
                         (
                                 Post.class , R.layout.all_post_layout ,
-                                PostsViewHolder.class , postRef
+                                PostsViewHolder.class , sortPostInDescendingOrder
                         )
                 {
                     @Override
@@ -219,9 +194,7 @@ public class MainActivity extends AppCompatActivity {
                         holder.imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
                                 String pressedPos= getRef(position).getKey().toString();
-
                                 postRef.child(pressedPos).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -252,9 +225,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v)
                             {
-
                                 likesChecker = true;
-
                                 likesRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -281,6 +252,16 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                         });
+
+
+                        holder.commentButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                sendUserToCommentActivity(postKey);
+                            }
+                        });
+
+                        showNumberOfComments(postKey  , holder);
                     }
 
                 };
@@ -289,6 +270,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void showNumberOfComments(String postKey, final PostsViewHolder holder) {
+        DatabaseReference dr = postRef.child(postKey).child("comment");
+
+        dr.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                    int numberOfPost = (int) dataSnapshot.getChildrenCount();
+                    holder.numberOfCComments.setText(numberOfPost+" "+" comments");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     private void displayImageAndNameOnTheNavigation() {
@@ -356,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         ZoomInImageView image;
 
         ImageButton likePostButton , commentButton ;
-        TextView numberOfLikes;
+        TextView numberOfLikes  , numberOfCComments;
         String currentUserID;
         DatabaseReference likeRef ;
         int countLikes;
@@ -365,6 +367,8 @@ public class MainActivity extends AppCompatActivity {
             super(itemView);
 
             mView = itemView ;
+            numberOfCComments = (TextView)mView.findViewById(R.id.id_no_of_commnets);
+            commentButton = (ImageButton)mView.findViewById(R.id.id_commnet_btn);
             username = (TextView)mView.findViewById(R.id.id_post_user_name);
             imageView = (CircleImageView)mView.findViewById(R.id.id_post_profile_image);
             timee = (TextView)mView.findViewById(R.id.id_post_time);
@@ -386,9 +390,7 @@ public class MainActivity extends AppCompatActivity {
             username.setText(fullName);
         }
 
-        public void setProfileImage(Context ctx , String profileImage) {
-            Picasso.with(ctx).load(profileImage).into(imageView);
-        }
+
 
         public void setDate(String date)
         {
@@ -404,9 +406,39 @@ public class MainActivity extends AppCompatActivity {
             descrip.setText(description);
         }
 
-        public void setPostImage(Context ctx ,String postImage)
+
+        public void setProfileImage(final Context ctx , final String profileImage) {
+
+            Picasso.with(ctx).load(profileImage).networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            Picasso.with(ctx).load(profileImage).into(imageView);
+                        }
+                    });
+        }
+
+        public void setPostImage(final Context ctx , final String postImage)
         {
-            Picasso.with(ctx).load(postImage).into(image);
+            Picasso.with(ctx).load(postImage).networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+
+                            Picasso.with(ctx).load(postImage).into(image);
+                        }
+                    });
+
         }
 
         public void setLikeButtonStatus(final String postKey) {
@@ -603,6 +635,13 @@ public class MainActivity extends AppCompatActivity {
     private void sendUserToFriendRequestActivity() {
 
         Intent fintent = new Intent(getApplicationContext() ,FriendRequestActivity.class);
+        startActivity(fintent);
+    }
+
+    public void sendUserToCommentActivity(String postKey)
+    {
+        Intent fintent = new Intent(getApplicationContext() ,CommentActivity.class);
+        fintent.putExtra("postKey" , postKey);
         startActivity(fintent);
     }
 

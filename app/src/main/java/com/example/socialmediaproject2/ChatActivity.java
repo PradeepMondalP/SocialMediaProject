@@ -64,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        updateUserStatus("online");
+
         initialize_id();
 
 
@@ -81,7 +81,6 @@ public class ChatActivity extends AppCompatActivity {
         fetchMessages();
 
 
-        updateUserStatus("online");
 
     }
 
@@ -89,6 +88,8 @@ public class ChatActivity extends AppCompatActivity {
     {
         DatabaseReference rootRef2 =  rootRef.child("Messages")
                 .child(messageSenderID).child(messageReceiverID);
+
+        rootRef2.keepSynced(true);
 
         rootRef2.addChildEventListener(new ChildEventListener() {
             @Override
@@ -140,6 +141,7 @@ public class ChatActivity extends AppCompatActivity {
             }
             else
             {
+                userMessgaeInput.setText("");
                 DatabaseReference messageSenderRef = messageRef.
                         child(messageSenderID).
                         child(messageReceiverID);
@@ -210,37 +212,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
 
-    public void updateUserStatus(String state)
-    {
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-            Map currentStateMap = new HashMap();
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
 
 
 
@@ -251,6 +222,8 @@ public class ChatActivity extends AppCompatActivity {
         receiverName.setText(messageReceiverName);
 
       DatabaseReference rootRef2=  rootRef.child("Users").child(messageReceiverID);
+
+      rootRef2.keepSynced(true);
 
       rootRef2.addValueEventListener(new ValueEventListener() {
           @Override

@@ -50,6 +50,7 @@ public class PostActivity extends AppCompatActivity {
     private StorageReference postImagesRef;
     private DatabaseReference userRef , postRef;
     private FirebaseAuth mAuth;
+    private long countPost=0;
 
     private String userProfileFullName ;
     private String userProfileImageURL;
@@ -68,8 +69,6 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-
-
         updatePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,66 +78,7 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateUserStatus("offline");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUserStatus("online");
-    }
-
-    public void updateUserStatus(String state)
-    {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("User");
-        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-
-            Map currentStateMap = new HashMap();
-
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
 
     private void updateThePostToTheDatabase() {
 
@@ -190,6 +130,8 @@ public class PostActivity extends AppCompatActivity {
                 .child(imageUri.getLastPathSegment() +postRandomName +".jpg");
 
 
+        System.out.println("image uri saving in Storsge"+imageUri);
+
         filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -207,6 +149,7 @@ public class PostActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
 
                             downloadURL = uri.toString();
+                            System.out.println("downloadUrl is :"+downloadURL);
 
                             savingInformationToDatabase();
                         }
@@ -225,6 +168,32 @@ public class PostActivity extends AppCompatActivity {
 
     private void savingInformationToDatabase() {
 
+
+
+        postRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                   countPost = dataSnapshot.getChildrenCount();
+
+
+                }
+                else
+                {
+                   countPost =0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
         mAuth =FirebaseAuth.getInstance();
         final String current_userID = mAuth.getCurrentUser().getUid();
 
@@ -234,51 +203,53 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.hasChild("fullName"))
+                if(dataSnapshot.hasChild("fullName")  &&
+                        dataSnapshot.hasChild("profileImage") )
                 {
                     userProfileFullName = dataSnapshot.child("fullName")
                             .getValue().toString();
-                }
-                if(dataSnapshot.hasChild("profileImage"))
-                {
                     userProfileImageURL = dataSnapshot.child("profileImage")
                             .getValue().toString();
+
+                    HashMap postsMap = new HashMap();
+                    postsMap.put("uid" , current_userID);
+                    postsMap.put("date" , saveCurrentDate);
+                    postsMap.put("time" , saveCurrentTime);
+                    postsMap.put("description" , desCription );
+                    postsMap.put("postImage" , downloadURL);
+                    postsMap.put("profileImage" , userProfileImageURL);
+                    postsMap.put("fullName" , userProfileFullName);
+                    postsMap.put("counter" , countPost);
+
+                    postRef.child( current_userID + " " + postRandomName).
+                            updateChildren(postsMap).
+                            addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+
+                                    if(task.isSuccessful())
+                                    {
+
+                                        mDialog.dismiss();
+                                        Intent intent = new Intent(getApplicationContext() , MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        Toast.makeText(PostActivity.this,
+                                                " new post is uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(PostActivity.this,
+                                                "new post couldn't upload", Toast.LENGTH_SHORT).show();
+                                        mDialog.dismiss();
+                                    }
+                                }
+                            });
                 }
 
-                HashMap postsMap = new HashMap();
-                postsMap.put("uid" , current_userID);
-                postsMap.put("date" , saveCurrentDate);
-                postsMap.put("time" , saveCurrentTime);
-                postsMap.put("description" , desCription );
-                postsMap.put("postImage" , downloadURL);
-                postsMap.put("profileImage" , userProfileImageURL);
-                postsMap.put("fullName" , userProfileFullName);
 
-                postRef.child( current_userID + " " + postRandomName).
-                        updateChildren(postsMap).
-                        addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
 
-                                if(task.isSuccessful())
-                                {
-
-                                    mDialog.dismiss();
-                                    Intent intent = new Intent(getApplicationContext() , MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    Toast.makeText(PostActivity.this,
-                                            " new post is uploaded successfully", Toast.LENGTH_SHORT).show();
-
-                                }
-                                else
-                                {
-                                    Toast.makeText(PostActivity.this,
-                                            "new post couldn't upload", Toast.LENGTH_SHORT).show();
-                                    mDialog.dismiss();
-                                }
-                            }
-                        });
             }
 
             @Override
@@ -292,10 +263,11 @@ public class PostActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==Gallery_Pick && resultCode==RESULT_OK
+        if(requestCode==Gallery_Pick && resultCode== RESULT_OK
                 && data!=null &&  data.getData()!=null  )
         {
             imageUri = data.getData();
+            System.out.println("image uri is:"+imageUri);
 
             selectPostingImage.setImageURI(imageUri);
         }

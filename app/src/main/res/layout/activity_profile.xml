@@ -4,14 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorprofile"
+    android:background="@drawable/profile_activity"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_app_bar_prof_activiryt"/>
 
+
+    <ScrollView
+        android:layout_below="@+id/id_app_bar_prof_activiryt"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -19,20 +24,19 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="300dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="200dp"
+                android:layout_marginTop="130dp"
                 android:id="@+id/id_rofile_profile_image"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/profile"
                 android:layout_marginBottom="4dp"
-                android:layout_height="300dp" />
+                android:layout_height="200dp" />
 
             <TextView
                 android:id="@+id/id_rofile_profile_name"
                 android:layout_width="match_parent"
                 android:text="Profile Name"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:layout_marginTop="10dp"
@@ -43,26 +47,24 @@
             <TextView
                 android:id="@+id/id_rofile_user_name"
                 android:layout_width="match_parent"
-                android:text="user Name"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:padding="3dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/id_rofile_profile_name"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="38dp"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="user Name"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/id_rofile_profile_status"
                 android:layout_width="match_parent"
-                android:text="hey i will show you the status "
+                android:text=" status "
                 android:gravity="center"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:padding="3dp"
-                android:textColor="@android:color/white"
                 android:layout_below="@+id/id_rofile_user_name"
                 android:layout_height="wrap_content" />
 
@@ -77,7 +79,6 @@
                 android:padding="2dp"
                 android:text="Country"
                 android:layout_below="@+id/id_rofile_profile_status"
-                android:textColor="@android:color/white"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -85,7 +86,6 @@
                 android:id="@+id/id_rofile_dob"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:text="Date Of Birth"
@@ -98,7 +98,6 @@
                 android:id="@+id/id_rofile_gender"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:text="gender"
@@ -125,7 +124,6 @@
                     android:layout_marginLeft="5dp"
                     android:padding="4dp"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@android:color/white"
                     android:background="@drawable/small_background"
                     android:text="No of posts"
                     android:layout_height="wrap_content" />
@@ -137,7 +135,6 @@
                     android:layout_marginLeft="5dp"
                     android:shadowColor="@android:color/darker_gray"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@android:color/white"
                     android:background="@drawable/small_background"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"

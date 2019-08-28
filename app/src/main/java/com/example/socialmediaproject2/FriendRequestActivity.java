@@ -48,71 +48,10 @@ public class FriendRequestActivity extends AppCompatActivity {
         // do something here
         searchPeopleAndFriends();
 
-        updateUserStatus("online");
+
 
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateUserStatus("offline");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUserStatus("online");
-    }
-
-
-    public void updateUserStatus(String state)
-    {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("User");
-        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-
-            Map currentStateMap = new HashMap();
-
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
 
 
     private void searchPeopleAndFriends()

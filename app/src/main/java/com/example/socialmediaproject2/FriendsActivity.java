@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -59,71 +61,9 @@ public class FriendsActivity extends AppCompatActivity {
 
         displayAllFriends();
 
-        updateUserStatus("online");
 
     }
 
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateUserStatus("offline");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUserStatus("online");
-    }
-
-    public void updateUserStatus(String state)
-    {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("User");
-        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-
-            Map currentStateMap = new HashMap();
-
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
 
     private void initilize() {
 
@@ -135,6 +75,8 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void displayAllFriends() {
+
+        friendsRef.keepSynced(true);
         FirebaseRecyclerAdapter<Friends ,FriendsViewHolder>recyclerAdapter =
                 new FirebaseRecyclerAdapter<Friends, FriendsViewHolder>
                         (
@@ -263,9 +205,23 @@ public class FriendsActivity extends AppCompatActivity {
             fullName2.setText(fullName);
         }
 
-        public void setProfileImage(Context ctx , String profileImage)
+        public void setProfileImage(final Context ctx ,final String profileImage)
         {
-           Picasso.with(ctx).load(profileImage).into(profileImage2);
+
+
+           Picasso.with(ctx).load(profileImage).networkPolicy(NetworkPolicy.OFFLINE)
+                   .into(profileImage2, new Callback() {
+                       @Override
+                       public void onSuccess() {
+
+                       }
+
+                       @Override
+                       public void onError() {
+                           Picasso.with(ctx).load(profileImage).into(profileImage2);
+                       }
+                   });
+
         }
 
         public void setDate(String date) {

@@ -1,6 +1,7 @@
 package com.example.socialmediaproject2;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +37,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String sendUserID  , receiveUserId  , current_state  , saveCurrentDate;
     private DatabaseReference userRef , friendRequestRef  , friendsRef;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,70 +82,16 @@ public class PersonProfileActivity extends AppCompatActivity {
             cancelFriendReq.setVisibility(View.INVISIBLE);
         }
 
-        updateUserStatus("online");
+
 
     }
+
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        updateUserStatus("online");
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.person_profile_menu , menu);
+        return true;
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateUserStatus("offline");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateUserStatus("online");
-    }
-
-    public void updateUserStatus(String state)
-    {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("User");
-        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-
-            Map currentStateMap = new HashMap();
-
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
-
 
     private void unFriendExistingFriends()
     {
@@ -467,6 +416,13 @@ public class PersonProfileActivity extends AppCompatActivity {
     }
 
     private void initilize_id() {
+
+        mToolbar = (Toolbar)findViewById(R.id.id_app_bar_person_prof_activiryt);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         profileImage=(CircleImageView)findViewById(R.id.id_rofile_profile_image2);
         profileName = (TextView)findViewById(R.id.id_rofile_profile_name2);
         userName = (TextView)findViewById(R.id.id_rofile_user_name2);

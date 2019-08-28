@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentActivity">
+
+
+  <include
+      layout="@layout/app_bar_layout"
+      android:id="@+id/id_app_bar_comment_act"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:id="@+id/id_comment_recyclerView"
+        android:layout_below="@+id/id_app_bar_comment_act"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/id_comment_type"
+        android:layout_height="match_parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/id_comment_type"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:textSize="18sp"
+        android:textColorHint="@android:color/black"
+        android:layout_marginRight="75dp"
+        android:hint="write a comment here..."
+        android:padding="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="17dp"
+        android:src="@drawable/post_comment"
+        android:id="@+id/id_comment_post_image_button"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
