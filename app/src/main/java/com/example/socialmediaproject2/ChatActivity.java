@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,16 +59,16 @@ public class ChatActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
+    // others.
+    private LastSeenUpdate lastSeenUpdate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-
         initialize_id();
-
-
 
         displayReceiverInfo();
 
@@ -80,8 +81,32 @@ public class ChatActivity extends AppCompatActivity {
 
         fetchMessages();
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        lastSeenUpdate = new LastSeenUpdate(UserID);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
     }
 
     private void fetchMessages()

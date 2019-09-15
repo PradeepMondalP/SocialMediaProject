@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String currentUserID;
     private int numberOfFriends = 0 , numberOfPosts =0;
     private Toolbar mToolbar;
+
+    private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -183,6 +186,34 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lastSeenUpdate = new LastSeenUpdate(currentUserID);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

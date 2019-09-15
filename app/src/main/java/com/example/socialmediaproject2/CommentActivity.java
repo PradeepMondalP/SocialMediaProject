@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +44,8 @@ public class CommentActivity extends AppCompatActivity {
     private String postKey , current_USER_ID  , userProfileImage , userName  ,fullName;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef , postRef  ,commentRef;
+
+    private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -152,6 +155,10 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
     private void initialize_id() {
 
         mToolbar = (Toolbar)findViewById(R.id.id_app_bar_comment_act);
@@ -175,6 +182,8 @@ public class CommentActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        lastSeenUpdate = new LastSeenUpdate(current_USER_ID);
+
         FirebaseRecyclerAdapter<Comments , CommentsHolder>firebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<Comments, CommentsHolder>
                 (
@@ -196,6 +205,25 @@ public class CommentActivity extends AppCompatActivity {
 
         commentRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
 
     public static class CommentsHolder extends RecyclerView.ViewHolder
     {

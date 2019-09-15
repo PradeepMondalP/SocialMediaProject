@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +45,7 @@ public class PostActivity extends AppCompatActivity {
     private Uri imageUri;
     private String desCription;
     private ProgressDialog mDialog;
-    private String downloadURL;
+    private String downloadURL , current_user_id;
     private String saveCurrentDate , saveCurrentTime , postRandomName;
 
     private StorageReference postImagesRef;
@@ -54,6 +55,8 @@ public class PostActivity extends AppCompatActivity {
 
     private String userProfileFullName ;
     private String userProfileImageURL;
+
+    private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +168,35 @@ public class PostActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lastSeenUpdate = new LastSeenUpdate(current_user_id);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
+
+
 
     private void savingInformationToDatabase() {
 
@@ -298,5 +330,7 @@ public class PostActivity extends AppCompatActivity {
 
         userRef= FirebaseDatabase.getInstance().getReference().child("Users");
         postRef= FirebaseDatabase.getInstance().getReference().child("Posts");
+        mAuth = FirebaseAuth.getInstance();
+        current_user_id = mAuth.getCurrentUser().getUid().toString();
     }
 }

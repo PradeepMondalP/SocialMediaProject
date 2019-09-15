@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,8 @@ public class RatingActivity extends AppCompatActivity {
     private TextView tv;
     private float ratingValue ;
 
+    private LastSeenUpdate lastSeenUpdate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,62 +59,28 @@ public class RatingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        updateUserStatus("online");
+        lastSeenUpdate = new LastSeenUpdate(currentUser);
+        lastSeenUpdate.update("online");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        updateUserStatus("offline");
+        lastSeenUpdate.update("online");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateUserStatus("online");
+        lastSeenUpdate.update("online");
     }
 
-    public void updateUserStatus(String state)
-    {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("User");
-        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        try
-        {
-            String saveCurrentDate , saveCurrentTime;
-
-            Calendar callForDate = Calendar.getInstance();
-            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYYY");
-            saveCurrentDate = currentDate.format(callForDate.getTime());
-
-            Calendar callForTime = Calendar.getInstance();
-            SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-            saveCurrentTime = currentTime.format(callForTime.getTime());
-
-
-            Map currentStateMap = new HashMap();
-
-            currentStateMap.put("time" ,saveCurrentDate);
-            currentStateMap.put("date" ,saveCurrentTime);
-            currentStateMap.put("type" ,state);
-
-            DatabaseReference userRef2 = userRef.child(UserID).child("userState");
-            userRef2.updateChildren(currentStateMap);
-
-        }
-        catch(Exception e){
-            Toast.makeText(this,
-                    "error in updateStatus of MainActivity",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
     }
+
 
 
     private void submitRatingToDataBase()

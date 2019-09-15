@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -61,11 +62,14 @@ public class MainActivity extends AppCompatActivity {
 
     private CircleImageView navProfileImage;
     private TextView navProfileName;
-    private String UserID;
+    private String UserID  , currentUserID;
     private ImageButton addNewPostButton;
     private FloatingActionButton fab;
 
     private Boolean likesChecker = false;
+
+    //other stuff
+    private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -73,8 +77,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        initialization();
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                UserMenuSelector(menuItem);
+                return false;
+            }
+        });
+
+        addNewPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToPostActivity();
+            }
+        });
+
+        displayAllTheUsersPost();
+        displayImageAndNameOnTheNavigation();
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToFindingFriendActivity();
+            }
+        });
+    }
+
+    private void initialization() {
+
         mAuth = FirebaseAuth.getInstance();
         UserID = mAuth.getCurrentUser().getUid();
+        currentUserID = UserID;
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         postRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         likesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -114,38 +152,11 @@ public class MainActivity extends AppCompatActivity {
         navProfileName = (TextView) navView.findViewById(R.id.id_nav_user_profile_name);
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                UserMenuSelector(menuItem);
-                return false;
-            }
-        });
-
-        addNewPostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToPostActivity();
-            }
-        });
-
-        displayAllTheUsersPost();
-        displayImageAndNameOnTheNavigation();
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToFindingFriendActivity();
-            }
-        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-      //  updateUserStatus("online");
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -157,8 +168,34 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        lastSeenUpdate = new LastSeenUpdate(currentUserID);
+        lastSeenUpdate.update("online");
+
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        lastSeenUpdate.update("offline");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
 
     private void displayAllTheUsersPost() {
     //    updateUserStatus("online");
@@ -188,8 +225,6 @@ public class MainActivity extends AppCompatActivity {
 
                         holder.setLikeButtonStatus(postKey);
 
-
-
                         holder.image.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -198,8 +233,6 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-
-
 
                         holder.imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -304,7 +337,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void displayImageAndNameOnTheNavigation() {
-
 
         final String cureent_user2 = mAuth.getCurrentUser().getUid();
         DatabaseReference dR3 = userRef.child(cureent_user2);

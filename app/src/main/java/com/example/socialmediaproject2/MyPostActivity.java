@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +44,8 @@ public class MyPostActivity extends AppCompatActivity {
     private Boolean likesChecker= false;
     private   String UserID;
 
+    private LastSeenUpdate lastSeenUpdate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,26 +60,29 @@ public class MyPostActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-     //   updateUserStatus("online");
+        lastSeenUpdate = new LastSeenUpdate(currentUserID);
+        lastSeenUpdate.update("online");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-    //    updateUserStatus("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    //    updateUserStatus("offline");
+        lastSeenUpdate.update("online");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-      //  updateUserStatus("online");
+        lastSeenUpdate.update("online");
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
+
 
 
 

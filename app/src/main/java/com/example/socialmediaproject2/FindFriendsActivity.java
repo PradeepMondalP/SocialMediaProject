@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +34,22 @@ public class FindFriendsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private RecyclerView friendList;
     private DatabaseReference userRef ;
+    private FirebaseAuth mAuth;
+    private String current_user_id;
+    private LastSeenUpdate lastSeenUpdate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_friends);
+
+       initialize();
+
+        searchPeopleAndFriend();
+
+    }
+
+    private void initialize() {
 
 
         mToolbar = (Toolbar)findViewById(R.id.id_find_friend_app_bar);
@@ -52,9 +65,35 @@ public class FindFriendsActivity extends AppCompatActivity {
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        searchPeopleAndFriend();
-
+        mAuth = FirebaseAuth.getInstance();
+        current_user_id = mAuth.getCurrentUser().getUid().toString();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lastSeenUpdate = new LastSeenUpdate(current_user_id);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
 
 
     private void searchPeopleAndFriend() {

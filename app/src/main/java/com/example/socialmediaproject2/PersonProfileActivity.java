@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,9 +36,11 @@ public class PersonProfileActivity extends AppCompatActivity {
     private Button sendFriendReq , cancelFriendReq;
 
     private FirebaseAuth mAuth;
-    private String sendUserID  , receiveUserId  , current_state  , saveCurrentDate;
+    private String sendUserID  , receiveUserId  , current_state  , saveCurrentDate ;
     private DatabaseReference userRef , friendRequestRef  , friendsRef;
     private Toolbar mToolbar;
+
+    private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,9 @@ public class PersonProfileActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void checkingForVerification(String sendUserID, String receiveUserId) {
 
         DatabaseReference tempRef = friendsRef.child(sendUserID).child(receiveUserId);
@@ -109,6 +115,34 @@ public class PersonProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lastSeenUpdate = new LastSeenUpdate(sendUserID);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
+
 
 
     @Override
@@ -466,5 +500,6 @@ public class PersonProfileActivity extends AppCompatActivity {
         current_state = "not_friends";
         friendRequestRef =FirebaseDatabase.getInstance().getReference().child("FriendRequests");
         friendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
+
     }
 }

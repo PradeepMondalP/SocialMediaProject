@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,9 @@ public class ClickPostActivity extends AppCompatActivity {
     private  String postDescp ;
 
     private Toolbar mToolbar;
+
+    // others
+    private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,10 +111,33 @@ public class ClickPostActivity extends AppCompatActivity {
         });
 
 
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        lastSeenUpdate = new LastSeenUpdate(currentUserID);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
 
     private void updateMyPost(String postDescp) {
 

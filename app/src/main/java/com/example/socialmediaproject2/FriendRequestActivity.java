@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +53,7 @@ public class FriendRequestActivity extends AppCompatActivity {
     // others
     private ProgressDialog mDialog;
     private String saveCurrentDate;
+    private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,35 @@ public class FriendRequestActivity extends AppCompatActivity {
         displayAllRequests();
 
     }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lastSeenUpdate = new LastSeenUpdate(current_user_id);
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lastSeenUpdate.update("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lastSeenUpdate.update("offline");
+    }
+
+
 
     private void displayAllRequests() {
 
