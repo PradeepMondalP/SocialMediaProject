@@ -88,9 +88,7 @@ public class FriendsActivity extends AppCompatActivity {
                     protected void populateViewHolder(final FriendsViewHolder holder, final Friends model, int pos) {
 
                         holder.setDate(model.getDate());
-
                         final String userID = getRef(pos).getKey();
-
 
                         userRef.child(userID).addValueEventListener(new ValueEventListener() {
                             @Override

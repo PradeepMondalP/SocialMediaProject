@@ -48,11 +48,14 @@ public class PersonProfileActivity extends AppCompatActivity {
 
         gettingAllTheValues();
 
-        cancelFriendReq.setVisibility(View.INVISIBLE);
-        cancelFriendReq.setEnabled(false);
+        cancelFriendReq.setVisibility(View.GONE);
+
 
         if(!sendUserID.equals(receiveUserId))
         {
+
+            checkingForVerification(sendUserID , receiveUserId);
+
             sendFriendReq.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,6 +87,27 @@ public class PersonProfileActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void checkingForVerification(String sendUserID, String receiveUserId) {
+
+        DatabaseReference tempRef = friendsRef.child(sendUserID).child(receiveUserId);
+
+        tempRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.hasChild("date"))
+                {
+                    current_state = "friends";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

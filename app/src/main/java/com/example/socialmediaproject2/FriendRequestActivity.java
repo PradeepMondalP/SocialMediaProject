@@ -43,7 +43,7 @@ public class FriendRequestActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference UserRef;
     String current_user_id ;
-    private DatabaseReference rootRef , freindReqRef;
+    private DatabaseReference rootRef , freindReqRef , myFriendsRef;
 
 
     // for storing dta from database to display in frnd req list
@@ -51,6 +51,7 @@ public class FriendRequestActivity extends AppCompatActivity {
 
     // others
     private ProgressDialog mDialog;
+    private String saveCurrentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +126,9 @@ public class FriendRequestActivity extends AppCompatActivity {
                                     public void onClick(View v) {
 
                                         cancelRequests(current_user_id , list_user_ID);
+                                        Toast.makeText(FriendRequestActivity.this,
+                                                "cancelled request successfully", Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
                             }
@@ -144,18 +148,18 @@ public class FriendRequestActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
 
-                                        Toast.makeText(FriendRequestActivity.this,
-                                                "want to reject", Toast.LENGTH_SHORT).show();
-
                                         cancelRequests(current_user_id , list_user_ID);
+                                        Toast.makeText(FriendRequestActivity.this,
+                                                "cancelled request successfully", Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
 
                                 holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Toast.makeText(getApplicationContext(),
-                                                "want to accept", Toast.LENGTH_SHORT).show();
+
+                                        acceptFriendRequest(current_user_id , list_user_ID);
                                     }
                                 });
                             }
@@ -175,9 +179,32 @@ public class FriendRequestActivity extends AppCompatActivity {
         obj.startListening();
     }
 
+    private void acceptFriendRequest(String current_user_id, String list_user_id) {
+
+        cancelRequests(current_user_id , list_user_id);
+        DatabaseReference senderSideFriend = myFriendsRef.child(current_user_id).child(list_user_id).child("date");
+        final DatabaseReference receiverSideFriend = myFriendsRef.child(list_user_id).child(current_user_id).child("date");
+
+
+        Calendar callForDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate =currentDate.format(callForDate.getTime());
+
+        senderSideFriend.setValue(saveCurrentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if(task.isSuccessful())
+                {
+                    receiverSideFriend.setValue(saveCurrentDate);
+                    Toast.makeText(FriendRequestActivity.this,
+                            "requests accepted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     private void cancelRequests(String current_user_id, String list_user_id) {
-
-
 
         DatabaseReference senderSide = freindReqRef.child(current_user_id).child(list_user_id);
         final DatabaseReference receiverSide = freindReqRef.child(list_user_id).child(current_user_id);
@@ -189,10 +216,7 @@ public class FriendRequestActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
-                        {
-                            Toast.makeText(FriendRequestActivity.this,
-                                    "cancelled request successfully", Toast.LENGTH_SHORT).show();
-
+                        { //
                         }
                         else
                         {
@@ -261,6 +285,7 @@ public class FriendRequestActivity extends AppCompatActivity {
         freindReqRef = rootRef.child("FriendRequests");
 
         mDialog = new ProgressDialog(getApplicationContext());
+        myFriendsRef = rootRef.child("Friends");
 
     }
 }
