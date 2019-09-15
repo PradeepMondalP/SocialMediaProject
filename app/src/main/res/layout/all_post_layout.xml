@@ -175,11 +175,14 @@
 
         </RelativeLayout>
 
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="7dp"
-            android:background="#FFC7CACA" />
+            android:layout_height="2dp"
+            android:background="@color/chat_view_separator"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
 
+            />
 
     </LinearLayout>
 

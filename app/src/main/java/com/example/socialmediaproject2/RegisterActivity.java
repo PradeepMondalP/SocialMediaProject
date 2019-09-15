@@ -65,20 +65,16 @@ public class RegisterActivity extends AppCompatActivity {
                     email.setError("Enter a Email");
                     return;
                 }
-                else if(TextUtils.isEmpty(mPass)){
-                    pass.setError("Enter a password");
+                else if(TextUtils.isEmpty(mPass) || mPass.length()<7){
+                    pass.setError("Enter a password of min length 7");
                     return;
                 }
-                else if(TextUtils.isEmpty(mVerifyPass))
+                else if(! mPass.equals(mVerifyPass)  )
                 {
-                    pass.setError("Enter pass again");
+                    verify_pass.setError("password doesnt match");
                     return;
                 }
-                else if( ! mPass.equals(mVerifyPass))
-                {
-                    Toast.makeText(getApplicationContext(), "Password Doesnt match",
-                            Toast.LENGTH_SHORT).show();
-                }
+
                 else
                 {
                     loadingBar.setTitle("Creating new Account");

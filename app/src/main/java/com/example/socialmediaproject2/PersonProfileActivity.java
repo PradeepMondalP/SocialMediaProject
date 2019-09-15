@@ -365,7 +365,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                         cancelFriendReq.setEnabled(false);
                     }
                     else
-                        if(reqest_type.equals("received"))
+                        if (reqest_type.equals("received"))
                         {
                             current_state = "request_received";
                             sendFriendReq.setText("Accept Friend Request");

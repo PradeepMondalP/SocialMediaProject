@@ -388,10 +388,8 @@ public class UpdateProfileSettingActivity extends AppCompatActivity {
                                                                     if(task.isSuccessful())
                                                                     {
                                                                         //  come here and try to add finish
-                                                                        startActivity(new Intent(
-                                                                                getApplicationContext() ,
-                                                                                UpdateProfileSettingActivity.class
-                                                                        ));
+                                                                        Toast.makeText(UpdateProfileSettingActivity.this,
+                                                                                "pix uploaded", Toast.LENGTH_SHORT).show();
 
                                                                         mDialog.dismiss();
                                                                     }

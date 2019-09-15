@@ -31,8 +31,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FindFriendsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private EditText friendsName;
-    private ImageButton searchButton;
     private RecyclerView friendList;
     private DatabaseReference userRef ;
     @Override
@@ -52,26 +50,11 @@ public class FindFriendsActivity extends AppCompatActivity {
         friendList.setHasFixedSize(true);
         friendList.setLayoutManager(new LinearLayoutManager(this));
 
-        friendsName = (EditText)findViewById(R.id.id_find_friend_search_box_input);
-        searchButton = (ImageButton)findViewById(R.id.id_find_friend_search_button);
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String searchBoxInput = friendsName.getText().toString().trim();
-
-                searchPeopleAndFriend();
-            }
-        });
-
+        searchPeopleAndFriend();
 
     }
-
-
-
-
 
 
     private void searchPeopleAndFriend() {

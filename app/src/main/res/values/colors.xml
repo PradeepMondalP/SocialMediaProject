@@ -8,4 +8,5 @@
     <color name="tempClo">#039BE5</color>
     <color name="senderColor">#40E214</color>
     <color name="ReceiverColor">#F4F5F4</color>
+    <color name="chat_view_separator">#2faaaaaa</color>
 </resources>

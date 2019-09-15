@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView navProfileName;
     private String UserID;
     private ImageButton addNewPostButton;
+    private FloatingActionButton fab;
 
     private Boolean likesChecker = false;
 
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         addNewPostButton = (ImageButton) findViewById(R.id.id_add_new_post_button);
 
         mToolbar = (Toolbar) findViewById(R.id.id_main_page_toolbar);
+        fab = (FloatingActionButton)findViewById(R.id.id_floating_btn);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setTitle("Home");
@@ -129,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
         displayAllTheUsersPost();
         displayImageAndNameOnTheNavigation();
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToFindingFriendActivity();
+            }
+        });
     }
 
     @Override
@@ -490,13 +500,6 @@ public class MainActivity extends AppCompatActivity {
                  sendUserToFriendsActivity();
                 break;
 
-            case R.id.id_nav_find_friends:
-                sendUserToFindingFriendActivity();
-                Toast.makeText(this, "press search button" +
-                        "to find friends", Toast.LENGTH_SHORT).show();
-
-                break;
-
             case R.id.id_nav_messages:
                 sendUserToFriendsActivity();
                 break;
@@ -618,14 +621,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void sendUserToProfileActivity() {
         Intent fintent = new Intent(getApplicationContext() ,ProfileActivity.class);
         startActivity(fintent);
 
     }
-
-
 
     private void sendUserToFriendsActivity() {
         Intent fintent = new Intent(getApplicationContext() ,FriendsActivity.class);

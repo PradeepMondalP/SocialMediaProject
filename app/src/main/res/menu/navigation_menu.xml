@@ -20,10 +20,6 @@
         android:icon="@drawable/friends"
         android:title="Friends"/>
 
-    <item
-        android:id="@+id/id_nav_find_friends"
-        android:icon="@drawable/find_people"
-        android:title="Find Friends"/>
 
     <item
         android:id="@+id/id_nav_find_friend_request"
