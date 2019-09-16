@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +40,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private DatabaseReference userRef , friendRequestRef  , friendsRef;
     private Toolbar mToolbar;
 
-    private LastSeenUpdate lastSeenUpdate;
+  //  private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,35 +115,6 @@ public class PersonProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lastSeenUpdate = new LastSeenUpdate(sendUserID);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
-    }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -356,7 +327,8 @@ public class PersonProfileActivity extends AppCompatActivity {
                 if(dataSnapshot.hasChild("profileImage"))
                 {
                     String prof = dataSnapshot.child("profileImage").getValue().toString();
-                    Picasso.with(getApplicationContext()).load(prof).into(profileImage);
+                    Picasso.with(getApplicationContext()).load(prof).placeholder(R.drawable.profile)
+                            .into(profileImage);
                 }
 
                 if(dataSnapshot.hasChild("fullName"))

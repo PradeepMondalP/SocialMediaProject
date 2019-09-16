@@ -1,5 +1,4 @@
 package com.example.socialmediaproject2;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -56,7 +54,6 @@ public class UpdateProfileSettingActivity extends AppCompatActivity {
     private Uri ImageUri;
     private StorageReference userProfileRef;
 
-    private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,6 +215,7 @@ public class UpdateProfileSettingActivity extends AppCompatActivity {
         userMap.put("gender" , genderr);
         userMap.put("dob" , dobb);
         userMap.put("relationshipStatus" , relaionShipp);
+        userMap.put("profileImage" , "null");
 
         current_user_ref.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override
@@ -359,33 +357,6 @@ public class UpdateProfileSettingActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lastSeenUpdate = new LastSeenUpdate(current_userID);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
     }
 
 

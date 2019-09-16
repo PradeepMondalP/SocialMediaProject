@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean likesChecker = false;
 
     //other stuff
-    private LastSeenUpdate lastSeenUpdate;
+ //   private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -168,34 +168,34 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        lastSeenUpdate = new LastSeenUpdate(currentUserID);
-        lastSeenUpdate.update("online");
+//        lastSeenUpdate = new LastSeenUpdate(currentUserID);
+//        lastSeenUpdate.update("online");
 
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        lastSeenUpdate.update("offline");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
-    }
+//
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        lastSeenUpdate.update("online");
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        lastSeenUpdate.update("online");
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        lastSeenUpdate.update("offline");
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        lastSeenUpdate.update("offline");
+//    }
 
     private void displayAllTheUsersPost() {
     //    updateUserStatus("online");
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                     final   String tempImage = dataSnapshot.child("profileImage")
                             .getValue().toString();
 
-                    Picasso.with(MainActivity.this).load(tempImage)
+                    Picasso.with(MainActivity.this).load(tempImage).placeholder(R.drawable.profile)
                             .into(navProfileImage);
 
                     navProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -368,8 +368,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(MainActivity.this,
-                            "couldn't load image or text",
-                            Toast.LENGTH_SHORT).show();
+                            "couldn't load image or text please update ur profile setting",
+                            Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onError() {
-                            Picasso.with(ctx).load(profileImage).into(imageView);
+                            Picasso.with(ctx).load(profileImage).placeholder(R.drawable.profile).into(imageView);
                         }
                     });
         }

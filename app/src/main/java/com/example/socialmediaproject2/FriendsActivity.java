@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +42,7 @@ public class FriendsActivity extends AppCompatActivity {
     private String online_user_id;
     private String type;
 
-    private LastSeenUpdate lastSeenUpdate;
+  //  private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,32 +64,6 @@ public class FriendsActivity extends AppCompatActivity {
         displayAllFriends();
 
 
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lastSeenUpdate = new LastSeenUpdate(online_user_id);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
     }
 
 
@@ -234,8 +208,6 @@ public class FriendsActivity extends AppCompatActivity {
 
         public void setProfileImage(final Context ctx ,final String profileImage)
         {
-
-
            Picasso.with(ctx).load(profileImage).networkPolicy(NetworkPolicy.OFFLINE)
                    .into(profileImage2, new Callback() {
                        @Override
@@ -245,7 +217,8 @@ public class FriendsActivity extends AppCompatActivity {
 
                        @Override
                        public void onError() {
-                           Picasso.with(ctx).load(profileImage).into(profileImage2);
+                           Picasso.with(ctx).load(profileImage).placeholder(R.drawable.profile)
+                                   .into(profileImage2);
                        }
                    });
 

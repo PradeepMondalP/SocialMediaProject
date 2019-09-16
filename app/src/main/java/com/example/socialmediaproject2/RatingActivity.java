@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +37,7 @@ public class RatingActivity extends AppCompatActivity {
     private TextView tv;
     private float ratingValue ;
 
-    private LastSeenUpdate lastSeenUpdate;
+  //  private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,32 +55,6 @@ public class RatingActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lastSeenUpdate = new LastSeenUpdate(currentUser);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
-    }
-
 
 
     private void submitRatingToDataBase()

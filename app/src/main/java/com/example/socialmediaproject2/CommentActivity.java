@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,7 +45,7 @@ public class CommentActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference userRef , postRef  ,commentRef;
 
-    private LastSeenUpdate lastSeenUpdate;
+  //  private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -182,7 +182,7 @@ public class CommentActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        lastSeenUpdate = new LastSeenUpdate(current_USER_ID);
+
 
         FirebaseRecyclerAdapter<Comments , CommentsHolder>firebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<Comments, CommentsHolder>
@@ -204,24 +204,6 @@ public class CommentActivity extends AppCompatActivity {
         };
 
         commentRecyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
     }
 
 
@@ -248,7 +230,7 @@ public class CommentActivity extends AppCompatActivity {
         }
         public void setProfileImage(Context ctx , String profileImage)
         {
-            Picasso.with(ctx).load(profileImage).into(prfileImage);
+            Picasso.with(ctx).load(profileImage).placeholder(R.drawable.profile).into(prfileImage);
         }
         public void setFullName(String fullName)
         {

@@ -18,7 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     // others.
-    private LastSeenUpdate lastSeenUpdate;
+//    private LastSeenUpdate lastSeenUpdate;
 
 
     @Override
@@ -83,31 +82,6 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        lastSeenUpdate = new LastSeenUpdate(UserID);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
-    }
 
     private void fetchMessages()
     {
@@ -258,7 +232,7 @@ public class ChatActivity extends AppCompatActivity {
               {
                   final String profileImage = dataSnapshot.child("profileImage")
                           .getValue().toString();
-                  Picasso.with(getApplicationContext()).load(profileImage)
+                  Picasso.with(getApplicationContext()).load(profileImage).placeholder(R.drawable.profile)
                           .into(receiverProfileImage);
               }
 

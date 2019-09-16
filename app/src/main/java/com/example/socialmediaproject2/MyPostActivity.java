@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
+//import com.example.socialmediaproject2.latseenupdate.LastSeenUpdate;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +44,7 @@ public class MyPostActivity extends AppCompatActivity {
     private Boolean likesChecker= false;
     private   String UserID;
 
-    private LastSeenUpdate lastSeenUpdate;
+  //  private LastSeenUpdate lastSeenUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,36 +55,6 @@ public class MyPostActivity extends AppCompatActivity {
 
         displayMyAllPosts();
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        lastSeenUpdate = new LastSeenUpdate(currentUserID);
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lastSeenUpdate.update("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        lastSeenUpdate.update("offline");
-    }
-
-
-
-
 
     private void displayMyAllPosts()
     {
@@ -195,7 +165,7 @@ public class MyPostActivity extends AppCompatActivity {
         }
         public void setProfileImage(Context ctx , String profileImage)
         {
-            Picasso.with(ctx).load(profileImage).into(imageView);
+            Picasso.with(ctx).load(profileImage).placeholder(R.drawable.profile).into(imageView);
         }
         public void setDate(String date)
         {
@@ -214,7 +184,6 @@ public class MyPostActivity extends AppCompatActivity {
         {
             Picasso.with(ctx).load(postImage).into(image);
         }
-
 
         public void setLikeButtonStatus(final String postKey)
         {
